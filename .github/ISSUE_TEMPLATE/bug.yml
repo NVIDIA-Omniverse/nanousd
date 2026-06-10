@@ -1,0 +1,48 @@
+name: "Bug Report"
+description: "Report incorrect behavior where the spec is clear and no new specification is needed."
+title: "[Bug] "
+labels: ["bug"]
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: "What's wrong? What did you expect?"
+    validations:
+      required: true
+
+  - type: textarea
+    id: repro
+    attributes:
+      label: Reproduction
+      description: "Minimal USDA or C API call sequence that reproduces the issue."
+      placeholder: |
+        ```usda
+        #usda 1.0
+        def Xform "Root" { ... }
+        ```
+
+        ```c
+        NanousdStage stage = nanousd_open("repro.usda");
+        // expected: ...
+        // actual: ...
+        ```
+    validations:
+      required: true
+
+  - type: textarea
+    id: spec-reference
+    attributes:
+      label: Spec Reference
+      description: "Which Core Spec section defines the correct behavior?"
+      placeholder: "Core Spec 1.0.1, §X.Y (page N)"
+    validations:
+      required: true
+
+  - type: textarea
+    id: test-cases
+    attributes:
+      label: Test Cases
+      description: "Compliance test cases that would catch this bug."
+      placeholder: |
+        1. **[Name]**: [Setup]. [Action]. [Expected result].

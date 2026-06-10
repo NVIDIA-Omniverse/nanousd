@@ -1,0 +1,133 @@
+name: "Spec Gap"
+description: "Report a gap between nanoUSD behavior and the USD Core Specification, with a draft normative spec for the fix."
+title: "[Spec Gap] "
+labels: ["spec-gap"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Spec Gap Report
+
+        Use this template when nanoUSD behavior diverges from the USD Core Specification, or when the Core Spec itself is silent on behavior that nanoUSD needs to define.
+
+        The goal is a **complete, reviewable specification** — not just a bug report. Implementation follows from the spec, not the other way around.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: |
+        What is the observable gap? Describe the current behavior and why it's wrong or incomplete.
+        Reference specific Core Spec sections where relevant.
+      placeholder: |
+        When [scenario], nanoUSD [current behavior]. Per Core Spec 1.0.1 §X.Y, [expected behavior].
+
+        This is a gap in [area] because [reason the consumer/caller cannot work around it].
+    validations:
+      required: true
+
+  - type: textarea
+    id: spec
+    attributes:
+      label: Draft Specification
+      description: |
+        Write the normative specification for the correct behavior. This is the core of the issue.
+
+        Follow the [AOUSD Style Guide](https://github.com/aousd/doc_build/blob/main/doc_build/template/style-guide.md). Key points:
+        - Implementation-agnostic — no language-specific types, function names, or codebase references
+        - Use AOUSD terminology: "asset valued", "asset path", "layer", "opinion", "value resolution"
+        - Normative keywords are lowercase: must, should, may (not RFC 2119 ALL-CAPS)
+        - Reference Core Spec sections by number (e.g. §6.2, §12.3)
+        - State the scope: default resolver only? All resolvers? Composition? Value resolution?
+        - Include a Definitions subsection for any terms not already in the Core Spec
+        - Number each rule for traceability to implementation and tests
+      placeholder: |
+        ### Normative Basis
+
+        Core Spec 1.0.1, Section X.Y defines...
+
+        ### Definitions
+
+        - **term**: definition
+
+        ### 1. General Rule
+
+        When [condition], the implementation must [behavior].
+
+        ### 2. [Next Rule]
+
+        ...
+    validations:
+      required: true
+
+  - type: dropdown
+    id: scope
+    attributes:
+      label: Scope
+      description: "What area of the spec does this affect?"
+      options:
+        - Value Resolution
+        - Composition
+        - Flattening
+        - Serialization (USDA/USDC)
+        - Schema / Type System
+        - Stage Population / Traversal
+        - Asset Resolution
+        - Other
+    validations:
+      required: true
+
+  - type: dropdown
+    id: upstream
+    attributes:
+      label: AOUSD Upstream Candidate?
+      description: "Could this spec draft (or a version of it) be proposed upstream to AOUSD?"
+      options:
+        - "Yes — Core Spec gap that affects all implementations"
+        - "Maybe — implementation detail with broader relevance"
+        - "No — nanoUSD-specific behavior"
+    validations:
+      required: true
+
+  - type: textarea
+    id: impl-notes
+    attributes:
+      label: Implementation Notes
+      description: |
+        **Optional.** nanoUSD-specific implementation guidance derived from the spec above.
+        This section IS allowed to reference codebase internals (files, functions, types).
+        Include a checklist mapping spec sections → implementation tasks.
+      placeholder: |
+        ### Prerequisites
+
+        From §1: [what the implementation needs to support this]
+
+        ### Checklist
+
+        | Spec Section | Requirement | Status |
+        |---|---|---|
+        | §1 | [requirement] | ☐ |
+        | §2 | [requirement] | ☐ |
+
+  - type: textarea
+    id: test-cases
+    attributes:
+      label: Test Cases
+      description: |
+        Enumerate compliance test cases. Each should map to one or more spec sections.
+        Describe the setup, action, and expected result — not the implementation.
+      placeholder: |
+        1. **[Name]**: [Setup]. [Action]. [Expected result]. (§N)
+        2. **[Name]**: ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: references
+    attributes:
+      label: References
+      description: "Links to Core Spec sections, OpenUSD source, related issues, or external resources."
+      placeholder: |
+        - Core Spec 1.0.1, §X.Y (page N)
+        - OpenUSD source: [file/function if relevant]
+        - Related: #NN
