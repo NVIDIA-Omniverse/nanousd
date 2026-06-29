@@ -1,4 +1,0 @@
-usd-core
-omniverse-asset-validator
-mcp
-numpy
